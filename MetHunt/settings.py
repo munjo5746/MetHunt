@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'Home',
     'Hunt',
+    'UserAuthentication',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -107,10 +108,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     BASE_DIR + "/static/",
     BASE_DIR + "/Home/static/",
-)
-
-TEMPLATE_DIRS = (
-    BASE_DIR + "/templates/",
-    BASE_DIR + "/Hunt/templates/",
-    BASE_DIR + "/Home/templates/"
 )

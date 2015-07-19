@@ -18,10 +18,11 @@ from django.contrib import admin
 from Home import urls as HomeUrls
 from Hunt import urls as HuntUrls
 from Home import views
-
+from UserAuthentication import urls as UserAuthenticationUrls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include(HomeUrls)),
     url(r'^Hunt/', include(HuntUrls)),
+    url(r'^UserAuthentication/', include(UserAuthenticationUrls)),
 ]
