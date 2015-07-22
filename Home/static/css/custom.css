@@ -18,3 +18,17 @@
   width: 70%;
   height: 70%;
 }
+
+.ProfileComponent {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.ProfileTableBorder {
+  border-right-width: 1px;
+  border-right-style: dashed;
+}
+
+.UserDropdownMenu {
+  width: 100%;
+  background-color: black;
+}

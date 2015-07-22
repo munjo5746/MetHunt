@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 
-
 class UserSerializer(serializers.ModelSerializer):
 
     def SaveUser(self, request):
@@ -54,9 +53,6 @@ class LogInSerializer(serializers.ModelSerializer):
             login(request, user)
             return True
         return False
-
-
-
 
     class Meta:
         model = UserModel

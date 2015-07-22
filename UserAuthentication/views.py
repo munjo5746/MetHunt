@@ -7,6 +7,8 @@ from rest_framework.decorators import api_view
 from UserAuthentication.serializers import UserSerializer
 from UserAuthentication.serializers import LogInSerializer
 from UserAuthentication.models import UserModel
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
 
@@ -44,7 +46,7 @@ def LogIn(request):
 
     # init
     form = None
-    data = {'error' : None}
+    data = {'error' : None, 'user' : None}
     page = "LogInPage.html"
     data.update(csrf(request))
 
@@ -52,8 +54,29 @@ def LogIn(request):
         serializer = LogInSerializer(data=request.data)
         if serializer.is_valid():
             serializer.UserLogIn(request)
+            data.update({'user' : request.user})
             return render_to_response("Home.html", data)
     else:
         form = forms.LoginForm()
         data.update({"form" : form})
+    return render_to_response(page, data)
+
+
+@api_view(['GET', 'POST'])
+def Profile(request):
+
+    # init
+    data = {'error' : None}
+    page = "ProfilePage.html"
+
+    return render_to_response(page, data)
+
+
+@login_required(login_url="/UserAuthentication/LogIn")
+def Logout(request):
+    data = {'error' : None, 'user' : None}
+    logout(request)
+    data['user'] = request.user
+    page = "Home.html"
+
     return render_to_response(page, data)

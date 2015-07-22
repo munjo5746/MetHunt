@@ -4,5 +4,12 @@ from django.http import HttpResponse
 
 # Create your views here.
 def HomeMain(request):
-    return render_to_response('Home.html', {})
+
+    # init
+    data = {'error' : None, 'user' : None}
+
+    if request.user.is_authenticated:
+        data['user'] = request.user
+
+    return render_to_response('Home.html', data)
     # return HttpResponse("Hello")
