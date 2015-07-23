@@ -53,7 +53,11 @@ def LogIn(request):
     if request.method == "POST":
         serializer = LogInSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.UserLogIn(request)
+            IsAuthenticated = serializer.UserLogIn(request)
+            if not IsAuthenticated:
+                # case where the user is not validated.
+                data['error'] = 'UserName does not exist or Password is not correct.'
+                return render_to_response(page, data)
             data.update({'user' : request.user})
             return render_to_response("Home.html", data)
     else:

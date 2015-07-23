@@ -3,19 +3,24 @@
 <div class="container">
   <div class="jumbotron LogInPage">
     <div class="FieldsContainer">
-      <h2>LogIn</h2>
-      <form action="#" method="post">
-        {% csrf_token %}
-        <table>
-          {% for field in form %}
-            <tr>
-              <td>{{ field.label_tag }}</td>
-              <td>{{ field }}</td>
-            </tr>
-          {% endfor %}
-        </table>
-        <input type="submit" class="btn btn-primary btn-block">
-      </form>
+      {% if not error %}
+        <h2>LogIn</h2>
+        <form action="#" method="post">
+          {% csrf_token %}
+          <table>
+            {% for field in form %}
+              <tr>
+                <td>{{ field.label_tag }}</td>
+                <td>{{ field }}</td>
+              </tr>
+            {% endfor %}
+          </table>
+          <input type="submit" class="btn btn-primary btn-block">
+        </form>
+      {% else %}
+        <h3>{{ error }}</h3>
+        <a href="/UserAuthentication/LogIn"><button class="btn btn-primary btn-block">Go Back</button></a>
+      {% endif %}
     </div>
   </div>
 </div>
