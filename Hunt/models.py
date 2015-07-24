@@ -9,6 +9,8 @@ class Hunt(models.Model):
 
     # django automatilcally add id as primary key.. Use this to get each Hunt.
     Title = models.CharField(max_length = 100, default = "No Hunt Title")
+    Start = models.CharField(max_length = 300, default = "No Start Location")
+    Category = models.CharField(max_length = 100, default = "No Category")
 
     # This Questions will be string that is formatted in json.
     # The json data will be list of Question id from start to the end.
@@ -27,6 +29,7 @@ class Item(models.Model):
     """
     # define custome primary with the met's id.
     QuestionId = models.CharField(primary_key = True, unique = True, max_length = 50, default = "No Item ID")
+    OrderNumber = models.IntegerField()
     Category = models.CharField(max_length = 50, default = "No Item Category")
     BelongTo = models.ManyToManyField(Hunt)
     Clue = models.CharField(max_length = 100, default = "No Item Clue")

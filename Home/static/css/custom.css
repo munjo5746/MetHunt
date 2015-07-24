@@ -36,3 +36,10 @@
 .UserDropdownMenu li a {
   color: white;
 }
+
+.ProfilePicture {
+  margin-top: 3.0em;
+}
+.ProfileEditButton {
+  margin-top: 1em;
+}

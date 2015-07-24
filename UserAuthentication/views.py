@@ -67,10 +67,11 @@ def LogIn(request):
 
 
 @api_view(['GET', 'POST'])
+@login_required(login_url="/UserAuthentication/LogIn")
 def Profile(request):
 
     # init
-    data = {'error' : None}
+    data = {'error' : None, 'user' : request.user} # login validation is checked
     page = "ProfilePage.html"
 
     return render_to_response(page, data)
