@@ -40,3 +40,6 @@ class Item(models.Model):
     Fact = models.CharField(max_length = 200, default = "No Item Fact")
     HintCrop = models.CharField(max_length = 200, default = "No Item HintCrop")
     ItemImage = models.CharField(max_length = 200, default = "No Item Image")
+
+    def __str__(self):
+        return "Item id %s in the %sth order." % (self.QuestionId, self.OrderNumber)

@@ -4,7 +4,7 @@
         "Category": "Ancient Art",
         "Start": "Start at the Robert and Reuee Belfer court on the first floor.",
         "Title": "Ancient Art Hunt",
-        "Items":"[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+        "Items":"[1, 2]"
     },
     "model": "Hunt.Hunt",
     "pk": 1
@@ -38,5 +38,4 @@
     "model": "Hunt.Item",
     "pk": 2
   }
-
 ]
