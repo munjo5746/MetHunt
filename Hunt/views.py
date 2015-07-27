@@ -4,6 +4,7 @@ from django.http import Http404
 from Hunt.models import Hunt
 from Hunt.models import Item
 
+from Hunt.serializers import HuntBeginSerializer
 # util libraries
 import json
 
@@ -32,5 +33,7 @@ def HuntBegin(request, HuntPk):
 
     # get the list of items that are belong to this Hunt
     ListOfItems = json.loads(hunt.Items)
-    print ListOfItems
-    return render_to_response('HuntMain.html', data)
+    serialized = HuntBeginSerializer(hunt)
+    data.update({'Hunt' : serialized.data})
+    
+    return render_to_response('HuntBegin.html', data)
