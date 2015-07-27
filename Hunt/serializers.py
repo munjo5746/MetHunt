@@ -5,4 +5,4 @@ from Hunt.models import Item
 class HuntBeginSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hunt
-        fields = ('Title', 'Start', 'Category', 'Items')
+        fields = ('id', 'Title', 'Start', 'Category', 'Items')

@@ -34,6 +34,16 @@ def HuntBegin(request, HuntPk):
     # get the list of items that are belong to this Hunt
     ListOfItems = json.loads(hunt.Items)
     serialized = HuntBeginSerializer(hunt)
+    print serialized
     data.update({'Hunt' : serialized.data})
-    
+    data.update({'CurrentIndex' : 0})
+
     return render_to_response('HuntBegin.html', data)
+
+@login_required(login_url="/UserAuthentication/LogIn")
+def HuntDetail(request, HuntPk, CurrentIndex):
+    
+    data = {}
+    page = "HuntBegin.html"
+    print CurrentIndex, HuntPk
+    return render_to_response(page, data)

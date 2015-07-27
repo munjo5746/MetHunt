@@ -5,4 +5,5 @@ from Hunt import views
 urlpatterns = [
     url(r"^HuntMain/$", views.Main, name="HuntMain"),
     url(r"HuntBegin/(?P<HuntPk>\d+)/$", views.HuntBegin, name="HuntBegin"),
+    url(r"HuntDetail/(\d+)/(\d+)/$", views.HuntDetail, name="HuntDetail"),
 ]
