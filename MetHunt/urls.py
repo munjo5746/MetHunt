@@ -23,6 +23,6 @@ from UserAuthentication import urls as UserAuthenticationUrls
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include(HomeUrls)),
-    url(r'^Hunt/', include(HuntUrls)),
+    url(r'^Hunt/', include(HuntUrls, namespace="Hunt")),
     url(r'^UserAuthentication/', include(UserAuthenticationUrls)),
 ]

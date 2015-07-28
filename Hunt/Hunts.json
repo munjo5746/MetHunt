@@ -1,0 +1,41 @@
+[
+  {
+    "fields": {
+        "Category": "Ancient Art",
+        "Start": "Start at the Robert and Reuee Belfer court on the first floor.",
+        "Title": "Ancient Art Hunt",
+        "Items":"[1, 2]"
+    },
+    "model": "Hunt.Hunt",
+    "pk": 1
+  },
+
+  {
+    "fields": {
+        "QuestionId": "14.130.9",
+        "BelongTo": [1],
+        "OrderNumber": 1,
+        "Clue": "Find a barelief with Demeter, Persephone, and Triptolemos",
+        "Hint": "Stone sculpture taller than a tall person",
+        "HintCrop": "hunts/Ancient_1_HintCrop.png",
+        "ItemImage": "http://images.metmuseum.org/CRDImages/gr/original/DT203390.jpg",
+        "Fact": "This is the largest and most important known votive relief."
+    },
+    "model": "Hunt.Item",
+    "pk": 1
+},
+{
+    "fields": {
+        "QuestionId": "27.122.9",
+        "BelongTo": [1],
+        "OrderNumber": 2,
+        "Clue": "Find the double faced Kantharos",
+        "Hint": "At the first glance you only see the bearded guy",
+        "HintCrop": "hunts/Ancient_2_HintCrop.png",
+        "ItemImage":"https://s-media-cache-ak0.pinimg.com/736x/8d/52/9f/8d529f0dead9509dd6c04f4a65185c39.jpg",
+        "Fact": "Terracotta uses a far simpler process for creating the finished work with much lower material costs. It is also much lighter and is used to produce robust durable works."
+    },
+    "model": "Hunt.Item",
+    "pk": 2
+  }
+]

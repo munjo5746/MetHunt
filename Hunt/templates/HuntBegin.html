@@ -1,25 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>MetHunt</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-  <!-- Bootstrap Core CSS -->
-  {% load staticfiles %}
-  <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
-
-  <!-- Custom CSS -->
-  <link href="{% static "css/full-width-pics.css" %}" rel="stylesheet">
-  <link rel="stylesheet" href="{% static "css/custom.css" %}">
-</head>
-<body>
+{% extends 'HuntIndex.html' %}
+{% block body %}
   <div class="container">
     <div class="row">
-      <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="col-sm-12 col-md-6 col-lg-6">
         <img class="HuntBeginImage" src="http://placehold.it/300x300" alt="">
       </div>
-      <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="col-sm-12 col-md-6 col-lg-6">
         <div class="page-header">
           <h1>{{ Hunt.Title }}</h1>
         </div>
@@ -28,11 +14,12 @@
           <ol>
             <li>{{ Hunt.Start }}</li>
             <li>Once you are at the Start Location, Start Your Own Hunt!</li>
+            {% url 'Hunt:HuntDetail' Hunt.id CurrentIndex as urlll%}
+            <li>{{ urlll }}</li>
           </ol>
-          <a href="{% url 'HuntDetail' Hunt.id CurrentIndex %}"><button>Start Hunt</button></a>
+          <a href="/Hunt/HuntDetail/1/0"><button>Start Hunt</button></a>
         </div>
       </div>
     </div>
   </div>
-</body>
-</html>
+{% endblock %}

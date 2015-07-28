@@ -28,7 +28,7 @@ class Item(models.Model):
     to do is make a list attribute in Hunt.
     """
     # define custome primary with the met's id.
-    QuestionId = models.CharField(primary_key = True, unique = True, max_length = 50, default = "No Item ID")
+    QuestionId = models.CharField(unique = True, max_length = 50, default = "No Item ID")
     OrderNumber = models.IntegerField()
     Category = models.CharField(max_length = 50, default = "No Item Category")
     BelongTo = models.ManyToManyField(Hunt)

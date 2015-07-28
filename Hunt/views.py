@@ -22,6 +22,7 @@ def HuntBegin(request, HuntPk):
     in the Museum.
     """
     data = {}
+    page = "HuntBegin.html"
 
     # first get the corresponding Hunt
     hunt = None
@@ -37,13 +38,31 @@ def HuntBegin(request, HuntPk):
     print serialized
     data.update({'Hunt' : serialized.data})
     data.update({'CurrentIndex' : 0})
+    data.update({'url' : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(0)})
 
-    return render_to_response('HuntBegin.html', data)
+    return render_to_response(page, data)
 
 @login_required(login_url="/UserAuthentication/LogIn")
 def HuntDetail(request, HuntPk, CurrentIndex):
-    
+    """
+    CurrentIndex : This index will be used for the index of the Hunt.Items
+    to find the Item instance. So on the current page, the CurrentIndex passing
+    into the next page will be the index of the item that will be displayed on
+    the page with the HttpResponse.
+    """
+    HuntPk = int(HuntPk)
+    CurrentIndex = int(CurrentIndex)
+    print type(HuntPk), type(CurrentIndex)
+
     data = {}
-    page = "HuntBegin.html"
-    print CurrentIndex, HuntPk
+    page = "HuntDetail.html"
+    hunt = None
+    item = None
+    try:
+        hunt = Hunt.objects.get(pk=HuntPk)
+        items = json.loads(hunt.Items)
+        item = Item.objects.get(pk=items[CurrentIndex])
+    except:
+        raise Http404
+
     return render_to_response(page, data)
