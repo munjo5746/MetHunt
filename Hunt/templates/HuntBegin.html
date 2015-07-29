@@ -15,9 +15,8 @@
             <li>{{ Hunt.Start }}</li>
             <li>Once you are at the Start Location, Start Your Own Hunt!</li>
             {% url 'Hunt:HuntDetail' Hunt.id CurrentIndex as urlll%}
-            <li>{{ urlll }}</li>
           </ol>
-          <a href="/Hunt/HuntDetail/1/0"><button>Start Hunt</button></a>
+          <a href="{{ url }}"><button class="btn btn-primary btn-block">Start Hunt</button></a>
         </div>
       </div>
     </div>

@@ -8,7 +8,6 @@ from Hunt.serializers import HuntBeginSerializer
 # util libraries
 import json
 
-
 # Create your views here.
 def Main(request):
     data = {}
@@ -50,9 +49,10 @@ def HuntDetail(request, HuntPk, CurrentIndex):
     into the next page will be the index of the item that will be displayed on
     the page with the HttpResponse.
     """
+
+    # init variables
     HuntPk = int(HuntPk)
     CurrentIndex = int(CurrentIndex)
-    print type(HuntPk), type(CurrentIndex)
 
     data = {}
     page = "HuntDetail.html"
@@ -61,8 +61,39 @@ def HuntDetail(request, HuntPk, CurrentIndex):
     try:
         hunt = Hunt.objects.get(pk=HuntPk)
         items = json.loads(hunt.Items)
-        item = Item.objects.get(pk=items[CurrentIndex])
     except:
         raise Http404
+
+    # get the size of the item list
+    listSize = len(items)
+    if listSize - 1 == CurrentIndex:
+        # we need to direct the user to congrat page for compeleting the Hunt.
+        page = "congratPage"
+        return render_to_response(page, data)
+
+    # get the previous item.
+    prevItem = Item.objects.get(pk=items[CurrentIndex])
+
+    # compare the answer.
+    if request.method == "GET":
+        Answer = request.GET.get("Answer")
+        print Answer
+        if Answer == prevItem.QuestionId:
+            # the user got the answer..
+            print "The answer is right, answer : " + str(Answer)
+            return render_to_response("HuntBegin.html", {})
+        else:
+            # the submitted answer is wrong..
+            print "The answer is wrong, answer : " + str(Answer)
+            return render_to_response("HuntBegin.html", {})
+    else:
+        print "It is not get method!"
+        return render_to_response("HuntBegin.html", {})
+
+    # get the item
+    item = Item.objects.get(pk=items[CurrentIndex + 1]) # the next item
+    data.update({"Item" : item})
+    data.update({"Title" : str(CurrentIndex + 1) + "th Question"})
+    data.update({"url" : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(CurrentIndex + 1)})
 
     return render_to_response(page, data)

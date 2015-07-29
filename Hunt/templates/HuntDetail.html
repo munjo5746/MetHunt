@@ -8,9 +8,22 @@
 
     <div class="col-sm-12 col-md-6 col-lg-6">
       <div class="page-header">
-        
+        <h1>{{ Title }}</h1>
       </div>
-    </div>
+      <div class="HuntDetail">
+        <h4>Clue</h4>
+        <p>{{ Item.Clue }}</p>
+        <h4>Fact</h4>
+        <p>{{ Item.Fact }}</p>
+      </div>
+      <div class="HuntDetailSubmit">
+        <form action="{{ url }}" method="GET">
+          <label for="Answer">Answer</label>
+          <input type="text" name="Answer">
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+          </div>
   </div>
 </div>
 {% endblock %}
