@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response
+from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from Hunt.models import Hunt
@@ -102,18 +103,10 @@ def HuntDetail(request, HuntPk, CurrentIndex):
             print "The answer is right, answer : " + str(Answer)
             # The CurrentIndex is not the last one. That means there is more
             # items to populate. Also, at this moment, the answer is correct.
-            # It means we need to populate next Item.
-
-            # get the item
-            item = Item.objects.get(pk=items[CurrentIndex + 1]) # the next item
-
-            # set the data we need
-            page = "HuntDetail.html"
-            data.update({"user" : request.user})
-            data.update({"Item" : item})
-            data.update({"Title" : str(CurrentIndex + 1) + "th Question"})
-            data.update({"url" : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(CurrentIndex + 1)})
-            return render_to_response(page, data)
+            # Show the correct page, and then the next item.
+            url = "/Hunt/HuntCorrect/" + str(HuntPk) + "/" + str(CurrentIndex)
+            print "will redirect to " + url
+            return redirect(url)
         else:
             # the submitted answer is wrong..
             # show that the submitted answer is wrong...
@@ -125,8 +118,36 @@ def HuntDetail(request, HuntPk, CurrentIndex):
             print "The answer is wrong, answer : " + str(Answer)
             return render_to_response(page, data)
 
+    return render_to_response(page, data)
 
+@login_required(login_url="/UserAuthentication/LogIn")
+def HuntCorrect(request, HuntPk, CurrentIndex):
 
+    print request.GET
 
+    HuntPk = int(HuntPk)
+    CurrentIndex = int(CurrentIndex)
 
+    hunt = None
+    items = None
+    item = None
+    data = {}
+    print "Redirected"
+
+    try:
+        hunt = Hunt.objects.get(pk=HuntPk)
+        items = json.loads(hunt.Items)
+        item = Item.objects.get(pk=items[CurrentIndex])
+    except:
+        raise Http404
+
+    # get the item
+    item = Item.objects.get(pk=items[CurrentIndex + 1]) # the next item
+
+    # set the data we need
+    page = "HuntDetail.html"
+    data.update({"user" : request.user})
+    data.update({"Item" : item})
+    data.update({"Title" : str(CurrentIndex + 1) + "th Question"})
+    data.update({"url" : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(CurrentIndex + 1)})
     return render_to_response(page, data)
