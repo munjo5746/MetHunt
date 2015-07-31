@@ -1,0 +1,104 @@
+/*   Link   */
+/* http://bootsnipp.com/snippets/featured/form-process-steps */
+
+.StepProgressBar {
+  border-bottom: solid 1px #e0e0e0;
+  padding: 0 0 10px 0;
+}
+
+.StepProgressBar > .ProgressEachStep {
+  padding: 0;
+  position: relative;
+}
+
+.StepProgressBar > .ProgressEachStep .ProgressStepIndicator{
+  color: #595959;
+  font: 16px;
+  margin-bottom: 5px;
+}
+
+.StepProgressBar > .ProgressEachStep .ProgressInfo {
+  color: #999;
+  font-size: 14px;
+}
+
+.StepProgressBar > .ProgressEachStep > .ProgressDot {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  display: block;
+  background: #fbe8aa;
+  top: 45px;
+  left: 50%;
+  margin-top: -15px;
+  margin-left: -15px;
+  border-radius: 50%;
+}
+
+.StepProgressBar > .ProgressEachStep > .ProgressDot::after {
+  /*
+    ::after insert content after the selected attribute.
+  */
+  content: ' ';
+  width: 14px;
+  height: 14px;
+  background: #fbbd19;
+  border-radius: 50%;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+}
+
+/* Overwrite the progress bar */
+.StepProgressBar > .ProgressEachStep > .progress {
+  position: relative;
+  border-radius: 0px;
+  height: 8px;
+  box-shadow: none;
+  margin: 20px 0;
+}
+
+/* Overwrite the progress-bar */
+.StepProgressBar > .ProgressEachStep > .progress > .progress-bar {
+  width: 0px;
+  box-shadow: none;
+  background: #fbe8aa;
+}
+
+/* Color the progress-bar when it is completed */
+.StepProgressBar > .ProgressEachStep.ProgressComplete > .progress > .progress-bar {
+  width: 100%;
+}
+
+.StepProgressBar > .ProgressEachStep.active > .progress > .progress-bar {
+  width: 50%;
+}
+
+.StepProgressBar > .ProgressEachStep:first-child.active > .progress > .progress-bar {
+  width: 0%;
+}
+
+.StepProgressBar > .ProgressEachStep:last-child.active > .progress > .progress-bar {
+  width: 100%;
+}
+
+.StepProgressBar > .ProgressEachStep.disabled > .ProgressDot {
+  background-color: #f5f5f5;
+}
+
+.StepProgressBar > .ProgressEachStep.disabled > .ProgressDot::after {
+  opacity: 0;
+}
+
+.StepProgressBar > .ProgressEachStep:first-child > .progress {
+  left: 50%;
+  width: 50%;
+}
+
+.StepProgressBar > .ProgressEachStep:last-child > .progress {
+  width: 50%;
+}
+
+.StepProgressBar > .ProgressEachStep.disabled a.ProgressDot {
+  pointer-events: none;
+}

@@ -12,8 +12,10 @@
   <!-- Custom CSS -->
   <link href="{% static "css/full-width-pics.css" %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static "css/custom.css" %}">
+  <link rel="stylesheet" href="{% static "HuntCustomStyle.css" %}">
 </head>
   <body>
+    {% include 'HuntStepProgressBar.html' %}
     {% block body %}
     {% endblock %}
   </body>
