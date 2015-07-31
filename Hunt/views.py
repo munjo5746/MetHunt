@@ -39,115 +39,147 @@ def HuntBegin(request, HuntPk):
     print serialized
     data.update({'Hunt' : serialized.data})
     data.update({'CurrentIndex' : 0})
-    data.update({'url' : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(-1)})
+    data.update({'url' : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(0)})
 
     return render_to_response(page, data)
 
 @login_required(login_url="/UserAuthentication/LogIn")
 def HuntDetail(request, HuntPk, CurrentIndex):
     """
-    CurrentIndex : This index will be used for the index of the Hunt.Items
-    to find the Item instance. So on the current page, the CurrentIndex passing
-    into the next page will be the index of the item that will be displayed on
-    the page with the HttpResponse.
+    CurrentIndex : This index will be the index of the Hunt.Items for next
+    question. So the passing url must contain the HuntPk and the CurrentIndex + 1.
     """
 
     # init variables
     HuntPk = int(HuntPk)
     CurrentIndex = int(CurrentIndex)
 
+    # init variables
     data = {}
-    page = None
+    page = "HuntDetail.html"
     hunt = None
     items = None
     item = None
+
+    # handle the case when the answer is submitted.
+    try:
+        # get the GET argument.
+        Answer = request.GET.get("Answer")
+        print "Answer : ", Answer
+    except Exception as e:
+        print e
+
+    if Answer is not None and len(Answer) != 0:
+        print "Answer is not None and size != 0"
+        # check if the answer is correct.
+        # The CurrentIndex will be always greater than 0.
+        # reset the CurrentIndex.
+        CurrentIndex = CurrentIndex - 1
+        try:
+            hunt = Hunt.objects.get(pk=HuntPk)
+            items = json.loads(hunt.Items)
+            item = Item.objects.get(pk=items[CurrentIndex])
+        except Exception as e:
+            print e
+
+        # check the answer.
+        if Answer == item.QuestionId:
+            print "Answer : ", Answer, "QuestionId : ", item.QuestionId
+
+            # reset the CurrentIndex
+            CurrentIndex = CurrentIndex + 1
+
+            # redirect to the HuntCorrect page
+            return redirect("/Hunt/HuntCorrect/" + str(HuntPk) + "/" + str(CurrentIndex))
+        else:
+            print "Answer : ", Answer, "Which is incorrect!"
+            # answer is wrong
+            data.update({"user" : request.user})
+            data.update({"Title" : "The answer is incorrect!"})
+            data.update({"url" : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(CurrentIndex)})
+            data.update({"error" : "Incorrect answer is submitted!"})
+            return render_to_response(page, data)
+
+    # get hunt, items, item
     try:
         hunt = Hunt.objects.get(pk=HuntPk)
         items = json.loads(hunt.Items)
-    except:
-        raise Http404
+        item = Item.objects.get(pk=items[CurrentIndex])
+    except Exception as e:
+        print e
+        return Http404
 
-    # block if CurrentIndex is -1
-    if CurrentIndex == -1:
-        try:
-            item = Item.objects.get(pk=items[CurrentIndex + 1]) # at 0 index
-        except:
-            raise Http404
-        page = "HuntDetail.html"
-        data.update({"user" : request.user})
-        data.update({"Item" : item})
-        data.update({"Title" : str(CurrentIndex + 1) + "th Question"})
-        data.update({"url" : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(CurrentIndex + 1)})
-        data.update({"error" : None})
-        return render_to_response(page, data)
-
-    # get the size of the item list
-    listSize = len(items)
-    if listSize - 1 == CurrentIndex:
-        # we need to direct the user to congrat page for compeleting the Hunt.
-        page = "congratPage"
-        return render_to_response(page, data)
-
-    # get the previous item.
-    prevItem = Item.objects.get(pk=items[CurrentIndex])
-
-    # get the submitted answer.
-    Answer = request.GET.get("Answer")
-
-
-    # compare the answer.
-    if request.method == "GET" and Answer is not None:
-
-        if str(Answer) == prevItem.QuestionId:
-            # the user got the answer..
-            print "The answer is right, answer : " + str(Answer)
-            # The CurrentIndex is not the last one. That means there is more
-            # items to populate. Also, at this moment, the answer is correct.
-            # Show the correct page, and then the next item.
-            url = "/Hunt/HuntCorrect/" + str(HuntPk) + "/" + str(CurrentIndex)
-            print "will redirect to " + url
-            return redirect(url)
-        else:
-            # the submitted answer is wrong..
-            # show that the submitted answer is wrong...
-            page = "HuntDetail.html"
-            data.update({"user" : request.user})
-            data.update({"Title" : "Incorrect Answer"})
-            data.update({"url" : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(CurrentIndex)})
-            data.update({"error" : "The submmitted answer is not correct!"})
-            print "The answer is wrong, answer : " + str(Answer)
-            return render_to_response(page, data)
-
+    data.update({"Item" : item})
+    data.update({"Title" : str(CurrentIndex + 1) + "th Question"})
+    data.update({"user" : request.user})
+    data.update({"url" : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(CurrentIndex + 1)})
+    data.update({"error" : None})
     return render_to_response(page, data)
+
+
 
 @login_required(login_url="/UserAuthentication/LogIn")
 def HuntCorrect(request, HuntPk, CurrentIndex):
-
-    print request.GET
-
+    """
+    The arguments CurrentIndex is the index of the next item. The reason is
+    because the url we are passing to the html page is for the next item and
+    this view function is called when the user submitted the correct answer and
+    HuntDetail view function redirects to this view function. In the Correct page,
+    we need to show the fact of the previous item and the url we are passing should
+    be the CurrentIndex.
+    """
     HuntPk = int(HuntPk)
     CurrentIndex = int(CurrentIndex)
 
+    page = "HuntDetail.html"
     hunt = None
     items = None
     item = None
     data = {}
     print "Redirected"
 
+    # check if the CurrentIndex > the last items index.
+    # CurrentIndex != the last items index because if the user passed the
+    # last question, the url contains CurrentIndex + 1 where the CurrentIndex
+    # is greater than the last index.
+
+
+
+
+    # get hunt and item.
     try:
         hunt = Hunt.objects.get(pk=HuntPk)
         items = json.loads(hunt.Items)
-        item = Item.objects.get(pk=items[CurrentIndex])
-    except:
+        item = Item.objects.get(pk=items[CurrentIndex - 1])
+    except Exception as e:
+        print "Http404 from HuntDetail() line 146"
+        print e
         raise Http404
 
-    # get the item
-    item = Item.objects.get(pk=items[CurrentIndex + 1]) # the next item
+    if CurrentIndex > len(items) - 1:
+        # the last item is finished.
+        # redirect to the congrat page.
+        print "Last item is finished!"
+        page = "HuntCorrect.html"
+        data.update({"user" : request.user})
+        data.update({"Item" : item})
+        data.update({"Title" : "Fact"})
+        data.update({"url" : "/Hunt/HuntCongrat"})
+        data.update({"error" : None})
+        return render_to_response(page, data)
 
     # set the data we need
-    page = "HuntDetail.html"
+    page = "HuntCorrect.html"
     data.update({"user" : request.user})
     data.update({"Item" : item})
-    data.update({"Title" : str(CurrentIndex + 1) + "th Question"})
-    data.update({"url" : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(CurrentIndex + 1)})
+    data.update({"Title" : "Fact"})
+    data.update({"url" : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(CurrentIndex)})
+    data.update({"error" : None})
     return render_to_response(page, data)
+
+@login_required(login_url="/UserAuthentication/LogIn")
+def HuntCongrat(request):
+
+    # init variables
+    page = "HuntCongrat.html"
+    return render_to_response(page, {})

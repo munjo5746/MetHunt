@@ -1,0 +1,23 @@
+{% extends 'HuntIndex.html' %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="col-sm-12 col-md-6 col-lg-6">
+        <img class="HuntBeginImage" src="http://placehold.it/300x300" alt="">
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+      <div class="page-header">
+        <h1>{{ Title }}</h1>
+      </div>
+      <div class="HuntDetail">
+        <h4>{{ Item.Fact }}</h4>
+      </div>
+      <div class="HuntDetailSubmit">
+        <a href="{{ url }}"><button>Next</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
