@@ -95,6 +95,7 @@ def HuntDetail(request, HuntPk, CurrentIndex):
             print "Answer : ", Answer, "Which is incorrect!"
             # answer is wrong
             data.update({"user" : request.user})
+            data.update({"Items" : SetupItemStatus(items, CurrentIndex)})
             data.update({"Title" : "The answer is incorrect!"})
             data.update({"url" : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(CurrentIndex)})
             data.update({"error" : "Incorrect answer is submitted!"})
@@ -110,6 +111,7 @@ def HuntDetail(request, HuntPk, CurrentIndex):
         return Http404
 
     data.update({"Item" : item})
+    data.update({"Items" : SetupItemStatus(items, CurrentIndex)})
     data.update({"Title" : str(CurrentIndex + 1) + "th Question"})
     data.update({"user" : request.user})
     data.update({"url" : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(CurrentIndex + 1)})
@@ -143,17 +145,12 @@ def HuntCorrect(request, HuntPk, CurrentIndex):
     # last question, the url contains CurrentIndex + 1 where the CurrentIndex
     # is greater than the last index.
 
-
-
-
     # get hunt and item.
     try:
         hunt = Hunt.objects.get(pk=HuntPk)
         items = json.loads(hunt.Items)
         item = Item.objects.get(pk=items[CurrentIndex - 1])
     except Exception as e:
-        print "Http404 from HuntDetail() line 146"
-        print e
         raise Http404
 
     if CurrentIndex > len(items) - 1:
@@ -162,6 +159,7 @@ def HuntCorrect(request, HuntPk, CurrentIndex):
         print "Last item is finished!"
         page = "HuntCorrect.html"
         data.update({"user" : request.user})
+        data.update({"Items" : SetupItemStatus(items, CurrentIndex)})
         data.update({"Item" : item})
         data.update({"Title" : "Fact"})
         data.update({"url" : "/Hunt/HuntCongrat"})
@@ -172,6 +170,7 @@ def HuntCorrect(request, HuntPk, CurrentIndex):
     page = "HuntCorrect.html"
     data.update({"user" : request.user})
     data.update({"Item" : item})
+    data.update({"Items" : SetupItemStatus(items, CurrentIndex - 1)})
     data.update({"Title" : "Fact"})
     data.update({"url" : "/Hunt/HuntDetail/" + str(HuntPk) + "/" + str(CurrentIndex)})
     data.update({"error" : None})
@@ -183,3 +182,19 @@ def HuntCongrat(request):
     # init variables
     page = "HuntCongrat.html"
     return render_to_response(page, {})
+
+
+def SetupItemStatus(items, CurrentIndex):
+    if len(items) == 0:
+        return None
+
+    result = []
+    for index in xrange(len(items)):
+        if index == CurrentIndex:
+            result += [(index + 1, "active")]
+        elif index < CurrentIndex:
+            result += [(index + 1, "ProgressComplete")]
+        else:
+            result += [(index + 1, "disabled")]
+    print "result : ", result
+    return result

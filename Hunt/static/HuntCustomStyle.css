@@ -4,6 +4,7 @@
 .StepProgressBar {
   border-bottom: solid 1px #e0e0e0;
   padding: 0 0 10px 0;
+  width: 100%;
 }
 
 .StepProgressBar > .ProgressEachStep {

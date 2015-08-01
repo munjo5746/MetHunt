@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row StepProgressBar">
+    {% for item in Items %}
+    <div class="col-xs-1 ProgressEachStep {{ item.1}}">
+      <div class="ProgressStepIndicator text-center">Step {{ item.0 }}</div>
+      <div class="progress">
+        <div class="progress-bar"></div>
+      </div>
+      <a href="#" class="ProgressDot"></a>
+      <!-- <div class="ProgressInfo text-center">Text goes here!</div> -->
+    </div>
+    {% endfor %}
+  </div>
+</div>
