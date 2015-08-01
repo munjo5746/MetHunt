@@ -4,12 +4,11 @@
         "Category": "Ancient Art",
         "Start": "Start at the Robert and Reuee Belfer court on the first floor.",
         "Title": "Ancient Art Hunt",
-        "Items":"[1, 2]"
+        "Items":"[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
     },
     "model": "Hunt.Hunt",
     "pk": 1
   },
-
   {
     "fields": {
         "QuestionId": "14.130.9",
@@ -38,4 +37,117 @@
     "model": "Hunt.Item",
     "pk": 2
   }
+  ,
+{
+    "fields": {
+        "QuestionId": "03.12.14",
+        "BelongTo": [1],
+        "OrderNumber": 3,
+        "Clue": "A mirroring Hercules may be getting eaten by a lion! Find him.",
+        "Hint": "Look for it in the courtyard.",
+        "HintCrop": "hunts/Ancient_3_HintCrop.png",
+        "ItemImage": "http://images.metmuseum.org/CRDImages/gr/original/DP156216.jpg",
+        "Fact": "This Roman art work deviates away from the slender athletic form of the Classical Greek. It shows some of the differences between Greek and Roman idealism and their depictions of what they considered flawless since Greeks believed that it would be best to immortalize a subject in their athletic prime."
+    },
+    "model": "Hunt.Item",
+    "pk": 3
+},
+{
+    "fields": {
+        "QuestionId": "31.13.1",
+        "BelongTo": [1],
+        "OrderNumber": 4,
+        "Clue": "I am the symbol of Babylonian goddess of love and war. I face in the opposite cardinal direction of my brother. Who am I?",
+        "Hint": "King of the jungle.",
+        "HintCrop": "hunts/Ancient_4_HintCrop.png",
+        "ItemImage": "http://images.metmuseum.org/CRDImages/an/original/DT891.jpg",
+        "Fact": "A reconstruction of the Ishtar Gate and Processional Way was built at the Pergamon Museum in Berlin. It stands 14 m (46 ft) high and 30 m (100 ft). The excavation process took 12 years!"
+    },
+    "model": "Hunt.Item",
+    "pk": 4
+},
+{
+    "fields": {
+        "QuestionId": "43.89.3",
+        "BelongTo": [1],
+        "OrderNumber": 5,
+        "Clue": "Find a 'Female Figure'. It may not look quite female!",
+        "Hint": "I am waring a pendant.",
+        "HintCrop": "hunts/Ancient_5_HintCrop.png",
+        "ItemImage": "http://images.metmuseum.org/CRDImages/an/original/hb43_89_3.jpg",
+        "Fact": " Erich Schmidt, the archaeologist who excavated this item, fought in the World War I when he was young, and was captured by the Russians. In 1923 he moved to U.S., and studied anthropology at Columbia University."
+    },
+    "model": "Hunt.Item",
+    "pk": 5
+},
+{
+    "fields": {
+        "QuestionId": "74.51.2467",
+        "BelongTo": [1],
+        "OrderNumber": 6,
+        "Clue": "Find an item that looks Egyptian, but is actually from Cyprus",
+        "Hint": "Don't you see the Wig?!",
+        "HintCrop": "hunts/Ancient_6_HintCrop.png",
+        "ItemImage": "http://images.metmuseum.org/CRDImages/gr/original/DP263872.jpg",
+        "Fact": " This item is said to have been found at Golgoi"
+    },
+    "model": "Hunt.Item",
+    "pk": 6
+},
+{
+    "fields": {
+        "QuestionId": "20.3.7",
+        "BelongTo": [1],
+        "OrderNumber": 7,
+        "Clue": "This lady is painted in red, yellow, blue, and green and holds a Duck. Find her!",
+        "Hint": "Find the basket, you find the lady",
+        "HintCrop": "hunts/Ancient_7_HintCrop.png",
+        "ItemImage": "http://images.metmuseum.org/CRDImages/eg/original/DP249003.jpg",
+        "Fact":  "Birds and rabits were two of the most sacrificed animals in Ancient Egypt"
+    },
+    "model": "Hunt.Item",
+    "pk": 7
+},
+{
+    "fields": {
+        "QuestionId": "11.154.1AB",
+        "BelongTo": [1],
+        "OrderNumber": 8,
+        "Clue": "Find an item with a lid wide open. Its body is carved with texts and scenes relating to the after life. It's big enough to fit a person! ",
+        "Hint": "The elevators lead you to this one.",
+        "HintCrop": "hunts/Ancient_8_HintCrop.png",
+        "ItemImage": "https://c2.staticflickr.com/8/7095/7156599167_031dd278f8_b.jpg",
+        "Fact": "Sarcophagus was purchased from the Egyptian Government in 1911."
+    },
+    "model": "Hunt.Item",
+    "pk": 8
+},
+{
+    "fields": {
+        "QuestionId": "12.181.198",
+        "BelongTo": [1],
+        "OrderNumber": 9,
+        "Clue": "This is a quartet of lionesses, each holds a key of life. Find the one that lost its key!",
+        "Hint": "During the day, your item is located in a very bright room",
+        "HintCrop": "hunts/Ancient_9_HintCrop.png",
+        "ItemImage": "http://www.insecula.com/PhotosNew/00/00/02/72/ME0000027237_3.JPG",
+        "Fact": "The Egyptian gods are often portrayed carrying the Key of Life (Ankh) by its loop, or bearing one in each hand, arms crossed over their chest."
+    },
+    "model": "Hunt.Item",
+    "pk": 9
+},
+{
+    "fields": {
+        "QuestionId": "131",
+        "BelongTo": [1],
+        "OrderNumber": 10,
+        "Clue": "The four figures from your previous clue face your final destination!",
+        "Hint": "That's too big for your eyes to miss!",
+        "HintCrop": "hunts/Ancient_10_HintCrop.png",
+        "ItemImage": "http://images.metmuseum.org/CRDImages/eg/original/DT563.jpg",
+        "Fact": "Inside the it you can find something that has no business in an Egyptian temple: statuary depicting Roman Emperor Augustus Caesar. What is the image of the man who conquered Egypt doing in an Egyptian temple? We'll leave you with that question!"
+    },
+    "model": "Hunt.Item",
+    "pk": 10
+}
 ]
