@@ -1,6 +1,7 @@
 /*   Link   */
-/* http://bootsnipp.com/snippets/featured/form-process-steps */
 
+/* progress bar style */
+/* http://bootsnipp.com/snippets/featured/form-process-steps */
 .StepProgressBar {
   border-bottom: solid 1px #e0e0e0;
   padding: 0 0 10px 0;
@@ -102,4 +103,9 @@
 
 .StepProgressBar > .ProgressEachStep.disabled a.ProgressDot {
   pointer-events: none;
+}
+
+
+.RowContainer {
+  margin: 20px;
 }
