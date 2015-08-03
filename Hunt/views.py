@@ -184,6 +184,25 @@ def HuntCongrat(request):
     return render_to_response(page, {})
 
 
+@login_required(login_url="/UserAuthentication/LogIn")
+def HuntCancel(request):
+    """
+    This view function is responsible for the case when the user clicks the
+    cancel button on the top-right corner of the Hunt page. This will return the
+    user to the HuntMain page.
+    """
+
+    # init variables
+    page = "HuntMain.html"
+    data = {}
+
+    # set the data
+    data.update({"error" : None})
+    data.update({"user" : request.user})
+    return render_to_response(page, data)
+
+
+
 def SetupItemStatus(items, CurrentIndex):
     if len(items) == 0:
         return None

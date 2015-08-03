@@ -105,7 +105,25 @@
   pointer-events: none;
 }
 
+/* HuntBegin.html */
 
 .RowContainer {
-  margin: 20px;
+  margin: 7em;
+}
+
+.closeButton {
+  float: right;
+  margin-top: .5em;
+  width: 2%;
+  height: auto;
+}
+
+.HuntImage {
+  border-radius: 25px;
+  border: 2px solid;
+  margin-top: 2.0em;
+}
+
+.container {
+  margin-top: 1.5em;
 }

@@ -2,9 +2,10 @@
 {% block body %}
 {% include 'ProgressBar.html' %}
 <div class="container panel panel-default">
-  <div class="row">
+  <a href="/Hunt/HuntCancel"><button class="close"><span aria-hidden="true">&times;</span></button></a>
+  <div class="row RowContainer">
     <div class="col-sm-12 col-md-6 col-lg-6">
-      <img class="HuntBeginImage" src="http://placehold.it/300x300" alt="">
+      <img class="HuntImage" src="http://placehold.it/300x300" alt="">
     </div>
 
     {% if error %}

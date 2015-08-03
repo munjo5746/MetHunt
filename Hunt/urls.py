@@ -8,4 +8,5 @@ urlpatterns = [
     url(r"^HuntDetail/(\d+)/(-?\d+)/$", views.HuntDetail, name="HuntDetail"),
     url(r"^HuntCorrect/(\d+)/(-?\d+)/$", views.HuntCorrect, name="HuntCorrect"),
     url(r"^HuntCongrat/$", views.HuntCongrat, name="HuntCongrat"),
+    url(r"^HuntCancel/$", views.HuntCancel, name="HuntCancel"),
 ]
