@@ -12,10 +12,22 @@
   <!-- Custom CSS -->
   <link href="{% static "css/full-width-pics.css" %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static "css/custom.css" %}">
+
+  <!-- Bootstrap Core CSS -->
+  {% load staticfiles %}
+  <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="{% static "css/full-width-pics.css" %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static "css/custom.css" %}">
   <link rel="stylesheet" href="{% static "HuntCustomStyle.css" %}">
 </head>
   <body>
     {% block body %}
     {% endblock %}
+
+    <!-- js files -->
+    <script src="{% static "js/jquery.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
   </body>
 </html>

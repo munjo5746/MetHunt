@@ -2,7 +2,8 @@
 {% block body %}
 {% include 'ProgressBar.html' %}
 <div class="container panel panel-default">
-  <a href="/Hunt/HuntCancel"><button class="close"><span aria-hidden="true">&times;</span></button></a>
+  <button class="close" data-target="#CancelModal" data-toggle="modal"><span aria-hidden="true">&times;</span></button>
+  {% include 'HuntCancelModal.html' %}
   <div class="row RowContainer">
     <div class="col-sm-12 col-md-6 col-lg-6">
       <img class="HuntImage" src="http://placehold.it/300x300" alt="">

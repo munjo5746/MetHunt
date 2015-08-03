@@ -1,14 +1,14 @@
-<div class="modal fade" id="CancelModal">
-  <div class="modal-dialog">
+<div class="modal fade" id="CancelModal" role="dialog" aria-labelledby="CancelModalTitle">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <!-- cancel button -->
 
       <!-- header -->
       <div class="modal-header">
-        <h4>Cancel the current Hunt</h4>
+        <!-- cancel button -->
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <h4 class="modal-title"id="CancelModalTitle">Cancel the current Hunt</h4>
       </div>
 
       <!-- body -->
@@ -18,8 +18,8 @@
 
       <!-- footer -->
       <div class="modal-footer">
-        <button class="btn btn-default">Go back to Hunt</button>
-        <button class="btn btn-primary">Yes, Cancel the Hunt</button>
+        <button class="btn btn-default" data-dismiss="modal">Go back to Hunt</button>
+        <a href="/Hunt/HuntCancel"><button class="btn btn-primary">Yes, Cancel the Hunt</button></a>
       </div>
     </div>
   </div>
