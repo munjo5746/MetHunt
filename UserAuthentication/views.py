@@ -25,8 +25,10 @@ def SignUp(request):
     data.update(csrf(request))
 
     if request.method == "POST":
+        print request.data
         # received data
         serializer = UserSerializer(data=request.data)
+        print serializer.is_valid()
         if serializer.is_valid():
             # if valid, save the User
             saved = serializer.SaveUser(request)
@@ -52,6 +54,7 @@ def LogIn(request):
 
     if request.method == "POST":
         serializer = LogInSerializer(data=request.data)
+        print "LogIn user!", serializer.is_valid()
         if serializer.is_valid():
             IsAuthenticated = serializer.UserLogIn(request)
             if not IsAuthenticated:

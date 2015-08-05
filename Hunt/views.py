@@ -186,7 +186,14 @@ def HuntCongrat(request, HuntPk):
     """
     # init variables
     page = "HuntCongrat.html"
-    user = User.objects.get(pk=request.user.pk) # the user must be exist
+    user = UserModel.objects.get(User = request.user) # the user must be exist
+
+    lstOfHuntCompleted = json.loads(user.HuntCompleted)
+    lstOfHuntCompleted += [int(HuntPk)]
+    user.HuntCompleted = json.dumps(lstOfHuntCompleted)
+    user.save()
+    print user.HuntCompleted
+
 
 
     return render_to_response(page, {})

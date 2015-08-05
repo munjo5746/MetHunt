@@ -23,6 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
                     first_name = firstname,
                     last_name = lastname,
                     email = email)
+
         except:
             print username + " : Already exists."
             return False
@@ -32,6 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
+
             return True
 
 
@@ -45,8 +47,8 @@ class LogInSerializer(serializers.ModelSerializer):
         if self.data is None:
             print "self.data in UserLogIn is None"
             return
-        username = self.data['username']
-        password = self.data['password']
+        username = self.data['UserName']
+        password = self.data['Password']
 
         user = authenticate(username=username, password=password)
         if user is not None:
