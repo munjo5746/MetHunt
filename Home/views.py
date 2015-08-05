@@ -13,3 +13,9 @@ def HomeMain(request):
 
     return render_to_response('Home.html', data)
     # return HttpResponse("Hello")
+
+def About(request):
+    page = "About.html"
+    data = {}
+
+    return render_to_response(page, data)

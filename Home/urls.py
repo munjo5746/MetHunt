@@ -4,4 +4,5 @@ from Home import views
 
 urlpatterns = [
     url(r'^$', views.HomeMain, name='Home'),
+    url(r'^About/', views.About, name='About'),
 ]

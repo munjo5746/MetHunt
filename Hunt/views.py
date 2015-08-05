@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from Hunt.models import Hunt
 from Hunt.models import Item
+from UserAuthentication.models import UserModel
+from django.contrib.auth.models import User
 
 from Hunt.serializers import HuntBeginSerializer
 # util libraries
@@ -162,7 +164,7 @@ def HuntCorrect(request, HuntPk, CurrentIndex):
         data.update({"Items" : SetupItemStatus(items, CurrentIndex)})
         data.update({"Item" : item})
         data.update({"Title" : "Fact"})
-        data.update({"url" : "/Hunt/HuntCongrat"})
+        data.update({"url" : "/Hunt/HuntCongrat/" + str(HuntPk)})
         data.update({"error" : None})
         return render_to_response(page, data)
 
@@ -177,10 +179,16 @@ def HuntCorrect(request, HuntPk, CurrentIndex):
     return render_to_response(page, data)
 
 @login_required(login_url="/UserAuthentication/LogIn")
-def HuntCongrat(request):
-
+def HuntCongrat(request, HuntPk):
+    """
+    At this point, the user is completed the selected hunt. So we need to record
+    it into the UserModel.
+    """
     # init variables
     page = "HuntCongrat.html"
+    user = User.objects.get(pk=request.user.pk) # the user must be exist
+
+
     return render_to_response(page, {})
 
 
@@ -200,8 +208,6 @@ def HuntCancel(request):
     data.update({"error" : None})
     data.update({"user" : request.user})
     return render_to_response(page, data)
-
-
 
 def SetupItemStatus(items, CurrentIndex):
     if len(items) == 0:

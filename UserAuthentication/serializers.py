@@ -10,11 +10,11 @@ class UserSerializer(serializers.ModelSerializer):
         if self.data == None:
             return
 
-        username = self.data['UserName']
-        password = self.data['Password']
-        firstname = self.data['FirstName']
-        lastname = self.data['LastName']
-        email = self.data['Email']
+        username = self.data['username']
+        password = self.data['password']
+        firstname = self.data['first_name']
+        lastname = self.data['last_name']
+        email = self.data['email']
 
         try:
             user = User.objects.create_user(
@@ -36,8 +36,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
     class Meta:
-        model = UserModel
-        fields = ('UserName','Password', 'Email', 'FirstName', 'LastName')
+        model = User
+        fields = ('username', 'password', 'email', 'first_name', 'last_name')
 
 class LogInSerializer(serializers.ModelSerializer):
 
@@ -45,8 +45,8 @@ class LogInSerializer(serializers.ModelSerializer):
         if self.data is None:
             print "self.data in UserLogIn is None"
             return
-        username = self.data['UserName']
-        password = self.data['Password']
+        username = self.data['username']
+        password = self.data['password']
 
         user = authenticate(username=username, password=password)
         if user is not None:
@@ -55,5 +55,5 @@ class LogInSerializer(serializers.ModelSerializer):
         return False
 
     class Meta:
-        model = UserModel
-        fields = ('UserName', 'Password')
+        model = User
+        fields = ('username', 'password')
