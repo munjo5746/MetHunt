@@ -9,6 +9,8 @@ from UserAuthentication.serializers import LogInSerializer
 from UserAuthentication.models import UserModel
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.contrib.auth import authenticate
+from django.contrib.auth import login
 
 
 
@@ -25,10 +27,8 @@ def SignUp(request):
     data.update(csrf(request))
 
     if request.method == "POST":
-        print request.data
         # received data
         serializer = UserSerializer(data=request.data)
-        print serializer.is_valid()
         if serializer.is_valid():
             # if valid, save the User
             saved = serializer.SaveUser(request)
@@ -50,23 +50,39 @@ def LogIn(request):
     form = None
     data = {'error' : None, 'user' : None}
     page = "LogInPage.html"
+
+    # csrf
     data.update(csrf(request))
 
     if request.method == "POST":
-        serializer = LogInSerializer(data=request.data)
-        print "LogIn user!", serializer.is_valid()
-        if serializer.is_valid():
-            IsAuthenticated = serializer.UserLogIn(request)
-            if not IsAuthenticated:
-                # case where the user is not validated.
-                data['error'] = 'UserName does not exist or Password is not correct.'
-                return render_to_response(page, data)
-            data.update({'user' : request.user})
+        # serializer = LogInSerializer(data={"username" : request.POST.get("username", ""), "password" : request.POST.get("password", "")})
+        # if serializer.is_valid():
+        #     IsAuthenticated = serializer.UserLogIn(request)
+        #     if not IsAuthenticated:
+        #         # case where the user is not validated.
+        #         data['error'] = 'UserName does not exist or Password is not correct.'
+        #         return render_to_response(page, data)
+        #     data.update({'user' : request.user})
+        #     return render_to_response("Home.html", data)
+
+        # get username and password
+        username = request.POST.get("username", "")
+        password = request.POST.get("password", "")
+        user = authenticate(username=username, password=password)
+
+        # validated the user
+        if user is not None:
+            login(request, user)
+            data.update({"user" : request.user})
             return render_to_response("Home.html", data)
+        else:
+            # case where the user is not validated.
+            data['error'] = 'UserName does not exist or Password is not correct.'
+            return render_to_response(page, data)
     else:
         form = forms.LoginForm()
         data.update({"form" : form})
-    return render_to_response(page, data)
+        return render_to_response(page, data)
 
 
 @api_view(['GET', 'POST'])

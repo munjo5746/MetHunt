@@ -47,8 +47,8 @@ class LogInSerializer(serializers.ModelSerializer):
         if self.data is None:
             print "self.data in UserLogIn is None"
             return
-        username = self.data['UserName']
-        password = self.data['Password']
+        username = self.data['username']
+        password = self.data['password']
 
         user = authenticate(username=username, password=password)
         if user is not None:
