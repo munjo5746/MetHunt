@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+from Hunt.models import Hunt
+import json
 
 
 
@@ -37,6 +39,10 @@ def SignUp(request):
                 return render_to_response(page, data)
             # redirect to Home
             return redirect('/')
+        else:
+            form = forms.SignUpForm()
+            data.update({"form" : form})
+
     else:
         form = forms.SignUpForm()
         data.update({"form" : form})
@@ -55,16 +61,6 @@ def LogIn(request):
     data.update(csrf(request))
 
     if request.method == "POST":
-        # serializer = LogInSerializer(data={"username" : request.POST.get("username", ""), "password" : request.POST.get("password", "")})
-        # if serializer.is_valid():
-        #     IsAuthenticated = serializer.UserLogIn(request)
-        #     if not IsAuthenticated:
-        #         # case where the user is not validated.
-        #         data['error'] = 'UserName does not exist or Password is not correct.'
-        #         return render_to_response(page, data)
-        #     data.update({'user' : request.user})
-        #     return render_to_response("Home.html", data)
-
         # get username and password
         username = request.POST.get("username", "")
         password = request.POST.get("password", "")
@@ -93,6 +89,24 @@ def Profile(request):
     data = {'error' : None, 'user' : request.user} # login validation is checked
     page = "ProfilePage.html"
 
+    # get Hunt information
+    UserHunt = None
+    try:
+        UserHunt = UserModel.objects.get(BelongTo = request.user)
+    except Exception as e:
+        print e
+
+    # get data
+    completed = []
+    lstOfHunts = json.loads(UserHunt.HuntCompleted)
+    # try:
+    #     for data in lstOfHunts:
+    #         completed += [{'Title' : }]
+    # except Exception as e:
+    #     print e
+
+    print completed
+    data.update({"HuntCompleted" : lstOfHunts})
     return render_to_response(page, data)
 
 

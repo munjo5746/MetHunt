@@ -23,7 +23,6 @@ class UserSerializer(serializers.ModelSerializer):
                     first_name = firstname,
                     last_name = lastname,
                     email = email)
-
         except:
             print username + " : Already exists."
             return False
@@ -31,11 +30,13 @@ class UserSerializer(serializers.ModelSerializer):
         if user is not None:
             user.save()
             user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
+            login(request, user)
+
+            # make UserModel
+            userModel = UserModel(BelongTo = user)
+            userModel.save()
 
             return True
-
 
     class Meta:
         model = User

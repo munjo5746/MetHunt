@@ -12,7 +12,7 @@
       <!-- personal info -->
       <div class="col-lg-4 col-md-4 col-sm-12 ProfileComponent CustomProfile">
         <div class="page-header">
-          <h1>Edward Chung</h1>
+          <h2>Edward Chung</h2>
         </div>
         <div>
           <table>
@@ -31,7 +31,16 @@
 
       <!-- score graph -->
       <div class="col-lg-4 col-md-4 col-sm-12 ProfileComponent">
-
+        <div class="page-header">
+          <h2>Completed Hunt</h2>
+        </div>
+        <div>
+          <ul>
+            {% for data in HuntCompleted %}
+              <li>{{ data.Title }} completed at {{ data.completedAt }}</li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
     </div>
   </div>

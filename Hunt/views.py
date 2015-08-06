@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from Hunt.serializers import HuntBeginSerializer
 # util libraries
 import json
+import datetime
 
 # Create your views here.
 def Main(request):
@@ -186,15 +187,17 @@ def HuntCongrat(request, HuntPk):
     """
     # init variables
     page = "HuntCongrat.html"
-    user = UserModel.objects.get(User = request.user) # the user must be exist
+    user = UserModel.objects.get(BelongTo = request.user) # the user must be exist
 
+    # structure : [{pk : {'Title': title, 'completedAT' : date}}]
     lstOfHuntCompleted = json.loads(user.HuntCompleted)
-    lstOfHuntCompleted += [int(HuntPk)]
+    lstOfPk = [pk for pk in lstOfHuntCompleted ]
+    if HuntPk not in lstOfPk:
+        hunt = Hunt.objects.get(pk=HuntPk)
+        info = {'Title' : hunt.Title, 'completedAt' : datetime.date.today().strftime('%d/%b/%Y')}
+        lstOfHuntCompleted += [info]
     user.HuntCompleted = json.dumps(lstOfHuntCompleted)
     user.save()
-    print user.HuntCompleted
-
-
 
     return render_to_response(page, {})
 
