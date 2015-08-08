@@ -1,31 +1,30 @@
 {% extends 'index.html' %}
 {% block body %}
-<div class="container">
-  <div class="jumbotron SignUpPage">
+<div class="jumbotron SignUpPage">
+  <div class="container">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        {% if not error %}
+        <div class="FieldsContainer">
+          <h2 style="margin-bottom: 1em;">SignUp</h2>
+          <form action="/UserAuthentication/SignUp/" method="post">
+            {% csrf_token %}
+                <input type="text" name="{{ form.username.html_name }}" placeholder="Username" class="form-control"/>
+                <input type="password" name="{{ form.password.html_name }}" placeholder="Password" class="form-control"/>
+                <input type="email" name="{{ form.email.html_name }}" placeholder="Email" class="form-control"/>
+                <input type="text" name="{{ form.first_name.html_name }}" placeholder="Firstname" class="form-control"/>
+                <input type="text" name="{{ form.last_name.html_name }}" placeholder="Lastname" class="form-control"/>
+            <input type="submit" class="btn btn-primary btn-block">
+          </form>
+        </div>
 
-    {% if not error %}
-    <div class="FieldsContainer">
-      <h2 style="margin-bottom: 1em;">SignUp</h2>
-      <form action="/UserAuthentication/SignUp/" method="post">
-        {% csrf_token %}
-        <table>
-          {% for field in form %}
-          <tr>
-            <td>{{ field.label_tag }}</td>
-            <td>{{ field }}</td>
-          </tr>
-          {% endfor %}
-        </table>
-        <input type="submit" class="btn btn-primary btn-block">
-      </form>
+        {% else %}
+        <div class="FieldsContainer">
+          <h2>{{ error }}</h2>
+          <a href="/UserAuthentication/SignUp/"><button class="btn btn-primary">Go back</button></a>
+        </div>
+        {% endif %}
     </div>
-
-    {% else %}
-    <div class="FieldsContainer">
-      <h2>{{ error }}</h2>
-      <a href="/UserAuthentication/SignUp/"><button class="btn btn-primary btn-block">Go back</button></a>
-    </div>
-    {% endif %}
   </div>
 </div>
+
 {% endblock %}

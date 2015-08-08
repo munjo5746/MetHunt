@@ -13,8 +13,10 @@ import json
 import datetime
 
 # Create your views here.
+@login_required(login_url="/UserAuthentication/LogIn")
 def Main(request):
-    data = {}
+    data = {'user' : request.user, 'error' : None}
+
     return render_to_response('HuntMain.html', data)
 
 @login_required(login_url="/UserAuthentication/LogIn")
