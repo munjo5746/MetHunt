@@ -109,4 +109,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     BASE_DIR + "/static/",
     BASE_DIR + "/Home/static/",
+    BASE_DIR + "/Hunt/static/",
 )

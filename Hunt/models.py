@@ -11,6 +11,7 @@ class Hunt(models.Model):
     Title = models.CharField(max_length = 100, default = "No Hunt Title")
     Start = models.CharField(max_length = 300, default = "No Start Location")
     Category = models.CharField(max_length = 100, default = "No Category")
+    HuntImage = models.CharField(max_length = 100, default = "No Image")
 
     # This Questions will be string that is formatted in json.
     # The json data will be list of Question id from start to the end.
