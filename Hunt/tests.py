@@ -1,6 +1,7 @@
 # import modules
 from Hunt.views import Main
 from Hunt.views import HuntBegin
+from Hunt.views import HuntDetail
 
 
 from django.test import TestCase
@@ -48,3 +49,12 @@ class HuntTest(utest.TestCase):
 
         HuntBegin(self.request, 1)
         render.assert_called_with("HuntBegin.html", {'Hunt' : "data", "CurrentIndex" : 0, 'url' : "/Hunt/HuntDetail/" + str(1) + "/" + str(0)})
+
+    @utest.expectedFailure
+    def test_invalidHuntPkForHuntDetail(self):
+        """
+        This tests the HuntDetail function with invalid HuntPk. 
+        """
+        # mock the request.GET.get
+        self.request.GET.get = mock.MagicMock(return_value = "answer")
+        HuntDetail(self.request, -1, 0)
